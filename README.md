@@ -104,6 +104,14 @@ Launch the matching notebook, follow the chapter instructions, and drop into the
 
 ---
 
+## Validation Tools
+
+- `tools/validate_code.py` validates scripts under `code/` (compile-safe default, optional execution mode).
+- `tools/validate_notebooks.py` validates notebooks under `notebooks/` (lint-safe default, optional execution mode).
+- `tools/README_quality.md` provides usage examples and report commands.
+
+---
+
 ## Staying in Sync with the Books
 
 Treat this repo as the living lab companion: when the manuscripts evolve, so do these assets.
@@ -115,10 +123,3 @@ Treat this repo as the living lab companion: when the manuscripts evolve, so do 
 Enjoy the build journey, and remember: if you can rehearse it here, you can ship it in production.
 
 <p align="right"><img src="https://hilpisch.com/tce_logo.png" alt="The Crypto Engineer" width="25%"></p>
-
-
-## Validation Tools
-
-- `tools/validate_code.py` validates scripts under `code/` (compile-safe default, optional execution mode).
-- `tools/validate_notebooks.py` validates notebooks under `notebooks/` (lint-safe default, optional execution mode).
-- `tools/README_quality.md` provides usage examples and report commands.
