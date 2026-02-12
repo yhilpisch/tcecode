@@ -22,6 +22,8 @@ code/
   hashing/, aead/, entropy/, ...     # Python scripts for the labs and drills
 notebooks/
   1_book/, 2_book/, 3_book/, 4_book/ # Jupyter notebooks aligned with each volume
+tools/
+  validate_*.py, README_quality.md    # Validation helpers and usage notes
 README.md                            # Learner-facing overview (this document)
 ```
 
@@ -92,7 +94,9 @@ git clone https://github.com/thepythonquants/tce-code-companion.git
 cd tce-code-companion
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt  # provided in the repo root
+pip install jupyterlab pandas requests cryptography
+# optional: required only for notebook execution validation tooling
+pip install nbformat nbclient
 jupyter lab
 ```
 
@@ -111,3 +115,10 @@ Treat this repo as the living lab companion: when the manuscripts evolve, so do 
 Enjoy the build journey, and remember: if you can rehearse it here, you can ship it in production.
 
 <p align="right"><img src="https://hilpisch.com/tce_logo.png" alt="The Crypto Engineer" width="25%"></p>
+
+
+## Validation Tools
+
+- `tools/validate_code.py` validates scripts under `code/` (compile-safe default, optional execution mode).
+- `tools/validate_notebooks.py` validates notebooks under `notebooks/` (lint-safe default, optional execution mode).
+- `tools/README_quality.md` provides usage examples and report commands.

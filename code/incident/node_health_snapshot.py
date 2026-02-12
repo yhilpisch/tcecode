@@ -10,7 +10,7 @@ The Crypto Engineer | AI-Powered by GPT 5.1.
 
 import json
 
-from code.policy.mempool import mempool_info  # type: ignore[import-not-found]
+from code.policy.fee_policy import mempool_info  # type: ignore[import-not-found]
 from code.transaction.cli_wrapper import cli  # type: ignore[import-not-found]
 
 
@@ -31,4 +31,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

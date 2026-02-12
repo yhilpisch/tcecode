@@ -42,3 +42,25 @@ Icon?
 # Misc
 *.bak
 *.tmp
+
+# Generated lab/data artifacts (repo-root runtime outputs)
+toy_lending_snapshot.json
+toy_nft_metadata.json
+toy_order_book.json
+toy_smart_tx.json
+upgrade_snapshot.json
+wallet_lab.json
+binder.csv
+blocks_sample.csv
+crypto_events_sample.csv
+prices_sample.csv
+stablecoin_snapshots_sample.csv
+example_hash_file.txt
+example.bin
+mac_example.txt
+
+runbooks/incidents.json
+
+governance/pending_change.json
+governance/risk_template.json
+governance/memos/*.md

@@ -8,11 +8,9 @@ Verifying a Bitcoin Core download via SHA-256 checksum.
 The Crypto Engineer | AI-Powered by GPT 5.1.
 """
 
+import argparse
 import hashlib
 from pathlib import Path
-
-
-EXPECTED_SHA256 = "PUT_REAL_CHECKSUM_HERE"  # TODO: replace with the real checksum
 
 
 def sha256_file(path: Path) -> str:
@@ -24,15 +22,34 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Verify a Bitcoin Core archive against an expected SHA-256 digest."
+    )
+    parser.add_argument(
+        "archive",
+        type=Path,
+        help="Path to the downloaded archive (e.g. bitcoin-<version>-x86_64-apple-darwin.dmg).",
+    )
+    parser.add_argument(
+        "expected_sha256",
+        help="Expected SHA-256 hex digest from the official release checksums.",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
-    archive = Path("bitcoin-<version>-x86_64-apple-darwin.dmg")
+    args = parse_args()
+    archive = args.archive
     if not archive.exists():
         raise SystemExit(f"Archive not found: {archive}")
     digest = sha256_file(archive)
+    expected = args.expected_sha256.lower().strip()
+    if len(expected) != 64:
+        raise SystemExit("Expected SHA-256 must be a 64-character hex string.")
     print("digest :", digest)
-    print("matches:", digest == EXPECTED_SHA256)
+    print("matches:", digest == expected)
 
 
 if __name__ == "__main__":
     main()
-
