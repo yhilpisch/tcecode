@@ -60,7 +60,7 @@ Colab is the fastest way to get started &mdash; no local setup, just a browser. 
 from pathlib import Path
 import subprocess, sys
 
-repo_url = "https://github.com/yhilpisch/tcecode.git"
+repo_url = "https://github.com/yhilpisch/tcecode"
 target = Path("/content/tce")
 
 if not target.exists():
@@ -90,8 +90,8 @@ These tweaks keep runtime surprises to a minimum.
 Prefer your own machine? This path gives you full control, from IDE integration to offline work.
 
 ```bash
-git clone https://github.com/thepythonquants/tce-code-companion.git
-cd tce-code-companion
+git clone https://github.com/yhilpisch/tcecode
+cd tcecode
 python -m venv .venv
 source .venv/bin/activate
 pip install jupyterlab pandas requests cryptography
