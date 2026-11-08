@@ -24,12 +24,17 @@ def sha256_file(path: Path) -> str:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Verify a Bitcoin Core archive against an expected SHA-256 digest."
+        description=(
+            "Verify a Bitcoin Core archive against an expected SHA-256 digest."
+        )
     )
     parser.add_argument(
         "archive",
         type=Path,
-        help="Path to the downloaded archive (e.g. bitcoin-<version>-x86_64-apple-darwin.dmg).",
+        help=(
+            "Path to the downloaded archive "
+            "(e.g. bitcoin-<version>-x86_64-apple-darwin.dmg).",
+        ),
     )
     parser.add_argument(
         "expected_sha256",

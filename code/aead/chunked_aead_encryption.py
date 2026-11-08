@@ -10,7 +10,7 @@ The Crypto Engineer | AI-Powered by GPT 5.1.
 
 from typing import Iterable, Iterator, Tuple
 
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM  # type: ignore[import-not-found]
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM  # type: ignore
 
 
 def derive_nonce(stream_id: bytes, index: int) -> bytes:

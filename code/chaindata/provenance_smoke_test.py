@@ -23,7 +23,10 @@ EXPECTED_TX_PER_BLOCK = float(os.environ.get("EXPECTED_TX_PER_BLOCK", "42"))
 def main() -> None:
     payload = requests.post(
         RPC_ENDPOINT,
-        json={"method": "eth_getBlockByNumber", "params": [hex(BLOCK_HEIGHT), False]},
+        json={
+            "method": "eth_getBlockByNumber",
+            "params": [hex(BLOCK_HEIGHT), False],
+        },
         timeout=10,
     )
     payload.raise_for_status()

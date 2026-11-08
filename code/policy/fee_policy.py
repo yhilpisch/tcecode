@@ -66,7 +66,8 @@ def suggest_fee(band_name: str) -> tuple[float, str]:
     else:
         rate = max(floor, est)
         reason = (
-            f"estimatesmartfee for {band.conf_target} blocks, floored at mempool minimum"
+            f"estimatesmartfee for {band.conf_target} blocks, "
+            "floored at mempool minimum"
         )
 
     if rate > band.max_sat_vbyte:

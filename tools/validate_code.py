@@ -7,7 +7,8 @@ Use --execute to run scripts instead.
 Examples
   python tools/validate_code.py
   python tools/validate_code.py --execute --timeout 60 --fail-fast
-  python tools/validate_code.py --report-json tools/code_report.json --report-md tools/code_report.md
+  python tools/validate_code.py --report-json tools/code_report.json \
+      --report-md tools/code_report.md
 """
 
 from __future__ import annotations
@@ -129,7 +130,8 @@ def run_execute(path: Path, timeout: int, interpreter: str) -> Result:
 def default_execute_python() -> str:
     venv = os.environ.get("VIRTUAL_ENV")
     if venv:
-        candidate = Path(venv) / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
+        subdir = "Scripts/python.exe" if os.name == "nt" else "bin/python"
+        candidate = Path(venv) / subdir
         if candidate.exists():
             return str(candidate)
     path_python = shutil.which("python")
@@ -172,7 +174,11 @@ def print_summary(results: List[Result]) -> None:
         print(f"Failed {failed}/{total} files")
 
 
-def write_reports(results: List[Result], json_path: Optional[Path], md_path: Optional[Path]) -> None:
+def write_reports(
+    results: List[Result],
+    json_path: Optional[Path],
+    md_path: Optional[Path],
+) -> None:
     if json_path:
         payload = [
             {
@@ -210,18 +216,33 @@ def write_reports(results: List[Result], json_path: Optional[Path], md_path: Opt
 
 def main(argv: Optional[Iterable[str]] = None) -> int:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--include", action="append", help="glob(s) to include (default: code/**/*.py)")
-    p.add_argument("--exclude", action="append", default=[], help="glob(s) to exclude")
-    p.add_argument("--execute", action="store_true", help="execute scripts instead of compile-only checks")
+    p.add_argument(
+        "--include", action="append",
+        help="glob(s) to include (default: code/**/*.py)",
+    )
+    p.add_argument(
+        "--exclude", action="append", default=[],
+        help="glob(s) to exclude",
+    )
+    p.add_argument(
+        "--execute", action="store_true",
+        help="execute scripts instead of compile-only checks",
+    )
     p.add_argument(
         "--python",
         default=default_execute_python(),
-        help="Python interpreter to use in execute mode (default: active shell python)",
+        help=(
+            "Python interpreter to use in execute mode "
+            "(default: active shell python)"
+        ),
     )
     p.add_argument(
         "--strict-execute",
         action="store_true",
-        help="in execute mode, treat missing binaries/input files/required args as failures",
+        help=(
+            "in execute mode, treat missing binaries/input files/required "
+            "args as failures"
+        ),
     )
     p.add_argument("--timeout", type=int, default=60, help="timeout in execute mode")
     p.add_argument("--fail-fast", action="store_true")
@@ -249,7 +270,11 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
     if args.execute:
         print(f"Execute mode interpreter: {args.python}")
     for f in files:
-        res = run_execute(f, args.timeout, args.python) if args.execute else run_compile(f)
+        res = (
+            run_execute(f, args.timeout, args.python)
+            if args.execute
+            else run_compile(f)
+        )
         res.skipped = should_skip(res, args.strict_execute)
         results.append(res)
         if (not res.ok) and (not res.skipped):

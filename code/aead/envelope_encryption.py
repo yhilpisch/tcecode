@@ -11,7 +11,7 @@ The Crypto Engineer | AI-Powered by GPT 5.1.
 import os
 from typing import Dict
 
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM  # type: ignore[import-not-found]
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM  # type: ignore
 
 
 def generate_dek() -> bytes:

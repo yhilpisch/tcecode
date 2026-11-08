@@ -25,7 +25,9 @@ def combined_entropy_bits(
 def main() -> None:
     for rolls in (10, 20, 40):
         est = combined_entropy_bits(dice_rolls=rolls, hardware_bits=64.0)
-        print(f"{rolls:2d} dice rolls + 64 hardware bits -> {est:6.2f} effective bits")
+        print(
+            f"{rolls:2d} dice rolls + 64 hardware bits -> {est:6.2f} effective bits"
+        )
 
 
 if __name__ == "__main__":

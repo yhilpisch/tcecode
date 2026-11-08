@@ -11,7 +11,9 @@ The Crypto Engineer | AI-Powered by GPT 5.1.
 import math
 
 
-def rebalance_to_price(x0: float, y0: float, new_price: float) -> tuple[float, float]:
+def rebalance_to_price(
+    x0: float, y0: float, new_price: float
+) -> tuple[float, float]:
     k = x0 * y0
     x1 = (k / new_price) ** 0.5
     y1 = new_price * x1

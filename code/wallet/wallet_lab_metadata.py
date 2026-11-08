@@ -14,7 +14,11 @@ from typing import List
 
 
 def add_wallet_record(
-    store: Path, label: str, seed_words: str, network: str, first_addresses: List[str]
+    store: Path,
+    label: str,
+    seed_words: str,
+    network: str,
+    first_addresses: List[str],
 ) -> None:
     if store.exists():
         data = json.loads(store.read_text())

@@ -7,7 +7,8 @@ Use --execute to run notebooks with nbclient.
 Examples
   python tools/validate_notebooks.py
   python tools/validate_notebooks.py --execute --timeout 300
-  python tools/validate_notebooks.py --report-json tools/nb_report.json --report-md tools/nb_report.md
+  python tools/validate_notebooks.py --report-json tools/nb_report.json \
+      --report-md tools/nb_report.md
 """
 
 from __future__ import annotations
@@ -84,7 +85,8 @@ def execute_notebook(path: Path, timeout: int, kernel: str, out_dir: Path) -> Re
         from nbclient.exceptions import CellExecutionError  # type: ignore
     except Exception as exc:  # pragma: no cover
         raise SystemExit(
-            "Missing dependencies nbclient/nbformat. Install with: python -m pip install nbclient nbformat"
+            "Missing dependencies nbclient/nbformat. Install with: "
+            "python -m pip install nbclient nbformat"
         ) from exc
 
     os.environ.setdefault("MPLBACKEND", "Agg")
@@ -120,7 +122,11 @@ def print_summary(results: List[Result]) -> None:
     print(f"\nPassed {passed}/{total} notebooks")
 
 
-def write_reports(results: List[Result], json_path: Optional[Path], md_path: Optional[Path]) -> None:
+def write_reports(
+    results: List[Result],
+    json_path: Optional[Path],
+    md_path: Optional[Path],
+) -> None:
     if json_path:
         payload = [
             {
@@ -154,9 +160,18 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
         default=None,
         help="glob(s) to include (default: notebooks/*_book/*.ipynb)",
     )
-    p.add_argument("--exclude", action="append", default=[], help="glob(s) to exclude")
-    p.add_argument("--execute", action="store_true", help="execute notebooks instead of lint-only checks")
-    p.add_argument("--timeout", type=int, default=300, help="timeout in execute mode")
+    p.add_argument(
+        "--exclude", action="append", default=[],
+        help="glob(s) to exclude",
+    )
+    p.add_argument(
+        "--execute", action="store_true",
+        help="execute notebooks instead of lint-only checks",
+    )
+    p.add_argument(
+        "--timeout", type=int, default=300,
+        help="timeout in execute mode",
+    )
     p.add_argument("--kernel", default="python3")
     p.add_argument("--executed-dir", type=Path, default=Path("tools/_executed"))
     p.add_argument("--fail-fast", action="store_true")
